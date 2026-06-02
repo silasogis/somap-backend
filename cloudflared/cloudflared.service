@@ -1,0 +1,14 @@
+[Unit]
+Description=Cloudflare Tunnel - somap
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=umbrel
+ExecStart=/usr/bin/cloudflared --config /home/umbrel/.cloudflared/config.yml tunnel run
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
