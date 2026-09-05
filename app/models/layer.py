@@ -25,6 +25,7 @@ class Layer(Base):
     source: Mapped[dict] = mapped_column(JSON, nullable=False)
     bbox: Mapped[list | None] = mapped_column(JSON, nullable=True)
     attribution: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    basemap: Mapped[bool] = mapped_column(Boolean, default=False)
 
     # Geometria nativa PostGIS 
     geometry: Mapped[object | None] = mapped_column(

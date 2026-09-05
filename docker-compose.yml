@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.db
     container_name: somap_db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -23,6 +24,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: somap_api
+    restart: unless-stopped
     env_file: .env
     ports:
       - "8000:8000"
@@ -31,17 +33,23 @@ services:
         condition: service_healthy
     volumes:
       - ./app:/app/app
+      - ./alembic:/app/alembic
+      - ./scripts:/app/scripts
+      - ./alembic.ini:/app/alembic.ini
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   geoserver:
     image: kartoza/geoserver:2.25.0
     container_name: somap_geoserver
+    restart: unless-stopped
     environment:
       GEOSERVER_ADMIN_USER: ${GEOSERVER_ADMIN_USER}
       GEOSERVER_ADMIN_PASSWORD: ${GEOSERVER_ADMIN_PASSWORD}
       INITIAL_MEMORY: 512M
       MAXIMUM_MEMORY: 1G
       EXTRA_JAVA_OPTS: "-Dorg.geoserver.map.turbojpeg.enabled=false"
+      CORS_ENABLED: "true"
+      
     volumes:
       - geoserver_data:/opt/geoserver/data_dir
       - ${RASTER_PATH:-/home/umbrel/dados/raster}:/opt/geoserver/raster

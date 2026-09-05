@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 
-from app.routers import auth_router, workspaces_router, layers_router, routing_router
+from app.routers import auth_router, workspaces_router, layers_router, routing_router, logistics_router
 
 app = FastAPI(title="SOMAP API")
 
@@ -21,6 +21,8 @@ app.include_router(auth_router)
 app.include_router(workspaces_router)
 app.include_router(layers_router)
 app.include_router(routing_router)
+app.include_router(logistics_router)
+
 
 @app.get("/health")
 async def health():

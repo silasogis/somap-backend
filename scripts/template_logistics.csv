@@ -1,0 +1,16 @@
+[DADOS DA OPERAÇÃO],,,
+Data da Operação,2026-07-25,,
+Motorista,Carlos Silva,,
+Telefone WhatsApp,+5541999998888,,
+Veículo,Caminhão Baú,,
+Janela de Tempo,08:30 às 11:30,,
+,,,
+[LISTA DE COLETAS E ENTREGAS],,,
+Ordem,Item / Descrição,Contato / Doador / Cliente,Endereço Completo
+1,Sofá Retrátil 3 Lugares,Maria Silva,Rua Bento Viana, Água Verde, Curitiba
+2,Mesa de Jantar 6 Cadeiras,Roberto Santos,Rua Itacolomi, Portão, Curitiba
+3,Armário de Casal Desmontado,Família Souza,Alameda Princesa Izabel, Bigorrilho, Curitiba
+,,,
+[RETORNO DO SOMAP - RESULTADO CALCULADO],,,
+Distância/Custo Total,Tempo Estimado,Link Google Maps Navegação
+0.23 (Km equivalentes),~40 min,https://www.google.com/maps/dir/-25.4428,-49.2838/-25.452,-49.2785/-25.4715,-49.293/-25.435,-49.2955/-25.4428,-49.2838

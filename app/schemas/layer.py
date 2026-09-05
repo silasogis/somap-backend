@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 from humps import camelize
 from typing import Optional
 
@@ -16,6 +16,7 @@ class LayerUpdateSchema(BaseModel):
     source: Optional[dict] = None
     bbox: Optional[list[float]] = None
     attribution: Optional[str] = None
+    basemap: Optional[bool] = None
 
 class LayerConfigResponse(BaseModel):
     model_config = ConfigDict(
@@ -34,3 +35,11 @@ class LayerConfigResponse(BaseModel):
     source: dict
     bbox: list[float] | None = None
     attribution: str | None = None
+    basemap: bool = False
+
+    @field_validator("basemap", mode="before")
+    @classmethod
+    def default_basemap(cls, v):
+        if v is None:
+            return False
+        return v

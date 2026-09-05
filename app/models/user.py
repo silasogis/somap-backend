@@ -1,5 +1,5 @@
 from sqlalchemy import String, Enum as SAEnum
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
 from uuid import uuid4
 import enum
@@ -17,3 +17,6 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(254), unique=True, nullable=False, index=True)
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
     role: Mapped[UserRole] = mapped_column(SAEnum(UserRole), default=UserRole.viewer)
+
+    workspaces: Mapped[list["Workspace"]] = relationship(secondary="user_workspaces", back_populates="users")
+
