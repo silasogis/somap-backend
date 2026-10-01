@@ -39,33 +39,33 @@ A arquitetura do ecossistema é totalmente containerizada e distribuída em cama
 ```mermaid
 graph TB
     subgraph "Camada de Clientes & Operadores"
-        WebClient([WebGIS Client / Logística / Mobile])
-        QGISDesktop["💻 QGIS Desktop / Engenharia<br><i>(Múltiplos Editores Concorrentes)</i>"]
-        FieldClient["📱 QField / Coleta em Campo<br><i>(Fiscais & Inspetores)</i>"]
+        WebClient["🌐 WebGIS Client / Logística / Mobile"]
+        QGISDesktop["💻 QGIS Desktop / Engenharia (Edição Concorrente)"]
+        FieldClient["📱 QField / Coleta em Campo (Fiscais & Inspetores)"]
     end
 
     subgraph "Borda & Tunelamento Seguro"
-        Cloudflare[Cloudflare Tunnel]
+        Cloudflare["Cloudflare Tunnel"]
     end
 
     WebClient -->|HTTPS / WSS| Cloudflare
 
     subgraph "Host / Docker Environment"
-        Cloudflare -->|api.somaping.online| API[FastAPI Application]
-        Cloudflare -->|geo.somaping.online| GeoServer[GeoServer 2.25.0 OGC Service]
-        Cloudflare -->|nominatim.somaping.online| Nominatim[Nominatim Service / OSM Engine]
+        Cloudflare -->|api.somaping.online| API["FastAPI Application"]
+        Cloudflare -->|geo.somaping.online| GeoServer["GeoServer 2.25.0 OGC Service"]
+        Cloudflare -->|nominatim.somaping.online| Nominatim["Nominatim Service / OSM Engine"]
 
-        API -->|Async SQLAlchemy / GeoAlchemy2| DB[(PostgreSQL 16 + PostGIS 3.4 + pgRouting 3.6)]
+        API -->|Async SQLAlchemy / GeoAlchemy2| DB[("PostgreSQL 16 + PostGIS 3.4 + pgRouting 3.6")]
         API -->|REST API Admin| GeoServer
         API -->|HTTP Client / Fallback Pipeline| Nominatim
-        API -->|Spatial Queries / Reference Data| CNEFE[(CNEFE - IBGE Endereços)]
+        API -->|Spatial Queries / Reference Data| CNEFE[("CNEFE - IBGE Endereços")]
 
         GeoServer -->|JDBC / PostGIS DataStore| DB
     end
 
     subgraph "Governança & Segurança PostGIS"
-        QGISDesktop -->|PostGIS Provider (Direct DB Session)| DB
-        FieldClient -->|PostGIS Provider / Sync| DB
+        QGISDesktop -->|PostGIS Provider - Sessao Direta| DB
+        FieldClient -->|PostGIS Provider - Sincronizacao| DB
     end
 ```
 
